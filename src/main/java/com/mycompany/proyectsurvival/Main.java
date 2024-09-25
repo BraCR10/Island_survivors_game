@@ -11,6 +11,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("---- GAME ----");
+
         
         GamePanel gamepanel = new GamePanel();
         window.add(gamepanel);
@@ -19,6 +20,7 @@ public class Main {
         window.setLocale(null);
         window.setVisible(true);
         
+        gamepanel.SetupGame();
         gamepanel.startThread();
     }
 }

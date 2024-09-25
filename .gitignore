@@ -1,1 +1,4 @@
 /Island_survivors/target/
+/target/
+*.xml
+Island_survivors/src/main/java/com/mycompany/proyectsurvival/tiles

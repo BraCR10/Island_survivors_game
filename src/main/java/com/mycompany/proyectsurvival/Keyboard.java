@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 public class Keyboard implements KeyListener{
     
     public boolean moveUP, moveDOWN, moveRIGHT, moveLEFT;
+    public boolean done = false;
     
     public void keyTyped(KeyEvent e) {}
     
@@ -15,6 +16,8 @@ public class Keyboard implements KeyListener{
         if (code == KeyEvent.VK_S){moveDOWN = true;}
         if (code == KeyEvent.VK_A){moveLEFT = true;}
         if (code == KeyEvent.VK_D){moveRIGHT = true;}
+        
+        if (code == KeyEvent.VK_ESCAPE){done = true;}
     }
 
     public void keyReleased(KeyEvent e) {

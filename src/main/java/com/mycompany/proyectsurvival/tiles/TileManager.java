@@ -1,7 +1,6 @@
 package com.mycompany.proyectsurvival.tiles;
 
 import com.mycompany.proyectsurvival.GamePanel;
-import com.mycompany.proyectsurvival.GamePanel;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,9 +10,10 @@ import java.io.FileReader;
 
 
 public class TileManager {
+    
     GamePanel gp;
-    Tile[] tile;
-    int mapTileNum [][];
+    public Tile[] tile;
+    public int mapTileNum [][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -26,26 +26,29 @@ public class TileManager {
     
     public void getTilesImages(){
        try {
+           String  localPath="C:\\Users\\User\\Documents\\proyectsurvival\\";
            tile[0] = new Tile();
-           tile[0].image = ImageIO.read(new File("C:\\Users\\david\\Desktop\\TEC\\IC2101 - PROGRAMACIÓN ORIENTADA A OBJETOS\\ProyectSurvival\\src\\main\\res\\Images\\water02.png"));
-       
+           tile[0].image = ImageIO.read(new File(localPath+"src\\main\\res\\Images\\water01.png"));
+           tile[0].collision = true;
+           
            tile[1] = new Tile();
-           tile[1].image = ImageIO.read(new File("C:\\Users\\david\\Desktop\\TEC\\IC2101 - PROGRAMACIÓN ORIENTADA A OBJETOS\\ProyectSurvival\\src\\main\\res\\Images\\water01.png"));
-       
+           tile[1].image = ImageIO.read(new File(localPath+"src\\main\\res\\Images\\water02.png"));
+           tile[1].collision = true;
+           
            tile[2] = new Tile();
-           tile[2].image = ImageIO.read(new File("C:\\Users\\david\\Desktop\\TEC\\IC2101 - PROGRAMACIÓN ORIENTADA A OBJETOS\\ProyectSurvival\\src\\main\\res\\Images\\sand.png"));
+           tile[2].image = ImageIO.read(new File(localPath+"src\\main\\res\\Images\\sand.png"));
        
            tile[3] = new Tile();
-           tile[3].image = ImageIO.read(new File("C:\\Users\\david\\Desktop\\TEC\\IC2101 - PROGRAMACIÓN ORIENTADA A OBJETOS\\ProyectSurvival\\src\\main\\res\\Images\\grass03.png"));
+           tile[3].image = ImageIO.read(new File(localPath+"src\\main\\res\\Images\\grass01.png"));
        
            tile[4] = new Tile();
-           tile[4].image = ImageIO.read(new File("C:\\Users\\david\\Desktop\\TEC\\IC2101 - PROGRAMACIÓN ORIENTADA A OBJETOS\\ProyectSurvival\\src\\main\\res\\Images\\grass02.png"));
+           tile[4].image = ImageIO.read(new File(localPath+"src\\main\\res\\Images\\grass02.png"));
        
            tile[5] = new Tile();
-           tile[5].image = ImageIO.read(new File("C:\\Users\\david\\Desktop\\TEC\\IC2101 - PROGRAMACIÓN ORIENTADA A OBJETOS\\ProyectSurvival\\src\\main\\res\\Images\\grass01.png"));
+           tile[5].image = ImageIO.read(new File(localPath+"src\\main\\res\\Images\\grass03.png"));
        
            tile[6] = new Tile();
-           tile[6].image = ImageIO.read(new File("C:\\Users\\david\\Desktop\\TEC\\IC2101 - PROGRAMACIÓN ORIENTADA A OBJETOS\\ProyectSurvival\\src\\main\\res\\Images\\soil.png"));
+           tile[6].image = ImageIO.read(new File(localPath+"src\\main\\res\\Images\\soil.png"));
        
        } catch (IOException e){
            e.printStackTrace();
@@ -54,7 +57,8 @@ public class TileManager {
     
     public void loadMap(){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\david\\Desktop\\TEC\\IC2101 - PROGRAMACIÓN ORIENTADA A OBJETOS\\ProyectSurvival\\src\\main\\res\\Map\\map_1.txt"));
+            String  localPath="C:\\Users\\User\\Documents\\proyectsurvival\\";
+            BufferedReader br = new BufferedReader(new FileReader(localPath+"src\\main\\res\\Map\\map.txt"));
 
             int col = 0;
             int row = 0;
@@ -63,7 +67,7 @@ public class TileManager {
             while ((line = br.readLine()) != null){
                 
                 String numbers[] = line.split(" ");
-                for (int i = 0; i < 60; i++){
+                for (int i = 0; i < gp.maxWorldCol; i++){
                     System.out.print(numbers[i]);
                     mapTileNum[row][i] = Integer.valueOf(numbers[i]);
                 }

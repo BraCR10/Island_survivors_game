@@ -1,4 +1,5 @@
 package com.mycompany.proyectsurvival.EntitiesResourcesShelter;
+import com.mycompany.proyectsurvival.GamePanel;
 import java.util.ArrayList;
 
 
@@ -10,7 +11,9 @@ public abstract class Character extends Entity{
     private Shelter shelter;
     
     
-    public Character(String name) {
+    public Character(GamePanel gp, String name) {
+        super(gp);
+        
         this.name = name;
         this.Lvl_stamina = 100;
         this.Lvl_HP = 100;
@@ -19,9 +22,10 @@ public abstract class Character extends Entity{
     }
     
     
-    abstract void Action();
-    abstract void Eat();
-    abstract void Rest();
+    public abstract void Action();
+    public abstract void Eat();
+    public abstract void Rest();
+    
     public void ReduceStamina(int points){
         Lvl_stamina -= points;
         if (Lvl_stamina <= 0){ Lvl_stamina = 0;}

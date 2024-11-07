@@ -1,134 +1,255 @@
 
 package com.mycompany.proyectsurvival;
 
-import com.mycompany.proyectsurvival.EntitiesResourcesShelter.Tree;
+import Entities_Resources_Shelter.Animals;
+import Entities_Resources_Shelter.Crocodiles;
+import Entities_Resources_Shelter.Crab;
+import Entities_Resources_Shelter.Deer;
+import Entities_Resources_Shelter.Fog;
+import Entities_Resources_Shelter.Fruit;
+import Entities_Resources_Shelter.Jaguar;
+import Entities_Resources_Shelter.Mushrooms;
+import Entities_Resources_Shelter.Rocks;
+import Entities_Resources_Shelter.Shelter;
+import Entities_Resources_Shelter.Snake;
+import Entities_Resources_Shelter.Tree;
+import Entities_Resources_Shelter.Turtle;
+import General_Threads.ThreadAnimals;
+import java.awt.Graphics2D;
+import java.util.Random;
 
 public class AssetSetter {
     GamePanel gp;
+    
+    //Resources in map
+    Tree new_tree;
+    Fruit new_fruit;
+    Mushrooms new_mushroom;
+    Rocks new_rock;
+    Fog fog;
+    
+    //Animals in map
+    Snake new_snake;
+    Jaguar new_jaguar;
+    Turtle new_turtle;
+    Crab new_crab;
+    Deer new_deer;
+    Crocodiles new_cocodrile;
+    Shelter new_shelder;
+    
+    //Animals threads
+    ThreadAnimals threadAnimals;
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
     }
     
-    public void setObject(){
-        gp.obj[0] = new Tree(1);
-        gp.obj[0].worldX = 6*gp.size;
-        gp.obj[0].worldY = 3*gp.size;
+    public void setAllAssets(){
+        Random rand = new Random();
         
-        gp.obj[1] = new Tree(2);
-        gp.obj[1].worldX = 10*gp.size;
-        gp.obj[1].worldY = 3*gp.size;
+        int rand_x;
+        int rand_y;
+        int rand_subclass;
 
-        gp.obj[2] = new Tree(2);
-        gp.obj[2].worldX = 20*gp.size;
-        gp.obj[2].worldY = 4*gp.size;
+        this.insertFog();
         
-        gp.obj[3] = new Tree(3);
-        gp.obj[3].worldX = 11*gp.size;
-        gp.obj[3].worldY = 5*gp.size;
-        
-        gp.obj[4] = new Tree(3);
-        gp.obj[4].worldX = 19*gp.size;
-        gp.obj[4].worldY = 5*gp.size;
-        
-        gp.obj[5] = new Tree(2);
-        gp.obj[5].worldX = 16*gp.size;
-        gp.obj[5].worldY = 6*gp.size;
-        
-        gp.obj[6] = new Tree(2);
-        gp.obj[6].worldX = 22*gp.size;
-        gp.obj[6].worldY = 6*gp.size;
+        for(int i = 0; i < 30; i++){
+            
+            rand_subclass = rand.nextInt(1,4);
+            
+            rand_x = rand.nextInt(4, 27);
+            rand_y = rand.nextInt(4, 27);
+            new_tree = new Tree(gp, 5, rand_subclass);
+            new_tree.WorldX = rand_x * gp.size;
+            new_tree.WorldY = rand_y * gp.size;
+            gp.Trees_in_map.add(new_tree);
 
-        gp.obj[7] = new Tree(1);
-        gp.obj[7].worldX = 10*gp.size;
-        gp.obj[7].worldY = 7*gp.size;
+            
+            rand_x = rand.nextInt(4, 27);
+            rand_y = rand.nextInt(4, 27);
+            new_fruit = new Fruit(gp, 5, rand_subclass);
+            new_fruit.WorldX = rand_x * gp.size;
+            new_fruit.WorldY = rand_y * gp.size;
+            gp.Fruits_in_map.add(new_fruit);
+            
+            rand_subclass = rand.nextInt(1,3);
+            
+            rand_x = rand.nextInt(4, 27);
+            rand_y = rand.nextInt(4, 27);
+            new_mushroom = new Mushrooms(gp, 5, rand_subclass);
+            new_mushroom.WorldX = rand_x * gp.size;
+            new_mushroom.WorldY = rand_y * gp.size;
+            gp.Mushrooms_in_map.add(new_mushroom);
+            
+            
+            rand_x = rand.nextInt(4, 27);
+            rand_y = rand.nextInt(4, 27);
+            new_rock = new Rocks(gp, 5, rand_subclass);
+            new_rock.WorldX = rand_x * gp.size;
+            new_rock.WorldY = rand_y * gp.size;
+            gp.Rocks_in_map.add(new_rock);
+        }  
         
-        gp.obj[8] = new Tree(1);
-        gp.obj[8].worldX = 14*gp.size;
-        gp.obj[8].worldY = 8*gp.size;
+        //Creats Snakes [+8]
+        for (int i = 0; i < 8; i++) { 
+            new_snake=new Snake(gp,gp.key);
+            gp.animals_in_map.add(new_snake); 
+            threadAnimals=new ThreadAnimals(new_snake,gp);
+            gp.threadAnimals.add(threadAnimals);
+            
+        }
         
-        gp.obj[9] = new Tree(1);
-        gp.obj[9].worldX = 19*gp.size;
-        gp.obj[9].worldY = 8*gp.size;
+        //Creats Crabs [+10]
+        for (int i = 0; i < 10; i++) {
+            new_crab=new Crab(gp,gp.key);
+            gp.animals_in_map.add(new_crab);
+            threadAnimals=new ThreadAnimals(new_crab,gp);
+            gp.threadAnimals.add(threadAnimals); 
+        }
+        
+        // Creats Deers [+20]
+        for (int i = 0; i < 20; i++) {
+            new_deer=new Deer(gp,gp.key);
+            gp.animals_in_map.add(new_deer);
+            threadAnimals=new ThreadAnimals(new_deer,gp);
+            gp.threadAnimals.add(threadAnimals);  
+        }
+        
+        // Creats Crocodiles [+5]
+        for (int i = 0; i < 5; i++) {
+            new_cocodrile=new Crocodiles(gp,gp.key);
+            gp.animals_in_map.add(new_cocodrile);
+            threadAnimals=new ThreadAnimals(new_cocodrile,gp);
+            gp.threadAnimals.add(threadAnimals);  
+        }
+        
+        // Creats Trutles [+9]
+        for (int i = 0; i < 9; i++) {
+            new_turtle=new Turtle(gp,gp.key);
+            gp.animals_in_map.add(new_turtle);
+            threadAnimals=new ThreadAnimals(new_turtle,gp);
+            gp.threadAnimals.add(threadAnimals);  
+        }
+        
+        // Creats Jaguars [+3]
+        for (int i = 0; i < 3; i++) {
+            new_jaguar=new Jaguar(gp,gp.key);
+            gp.animals_in_map.add(new_jaguar);
+            threadAnimals=new ThreadAnimals(new_jaguar,gp);
+            gp.threadAnimals.add(threadAnimals);  
+        }
+        //Start threads
+        for (ThreadAnimals animals : gp.threadAnimals) {
+            animals.start();
+        }
+        
+        
+        // Creats ONE new shealter
+        new_shelder=new Shelter("First", gp, 15, 15);
+        gp.shelters_in_map.add(new_shelder);
+        new_shelder.AddCharacter(gp.explorer);
+        
+        /*
+        new_shelder.AddCharacter(gp.builder);
+        
+        new_shelder.AddCharacter(gp.scientist);
+        new_shelder.AddCharacter(gp.hunter);
+        */
 
-        gp.obj[10] = new Tree(2);
-        gp.obj[10].worldX = 24*gp.size;
-        gp.obj[10].worldY = 8*gp.size;
-        
-        gp.obj[11] = new Tree(3);
-        gp.obj[11].worldX = 8*gp.size;
-        gp.obj[11].worldY = 10*gp.size;
 
-        gp.obj[12] = new Tree(3);
-        gp.obj[12].worldX = 14*gp.size;
-        gp.obj[12].worldY = 10*gp.size;
-        
-        gp.obj[13] = new Tree(1);
-        gp.obj[13].worldX = 27*gp.size;
-        gp.obj[13].worldY = 10*gp.size;
-        
-        gp.obj[14] = new Tree(3);
-        gp.obj[14].worldX = 11*gp.size;
-        gp.obj[14].worldY = 11*gp.size;
-
-        gp.obj[15] = new Tree(2);
-        gp.obj[15].worldX = 22*gp.size;
-        gp.obj[15].worldY = 11*gp.size;
-        
-        gp.obj[16] = new Tree(2);
-        gp.obj[16].worldX = 15*gp.size;
-        gp.obj[16].worldY = 12*gp.size;
-
-        gp.obj[17] = new Tree(1);
-        gp.obj[17].worldX = 20*gp.size;
-        gp.obj[17].worldY = 12*gp.size;
-        
-        gp.obj[18] = new Tree(1);
-        gp.obj[18].worldX = 10*gp.size;
-        gp.obj[18].worldY = 13*gp.size;
-        
-        gp.obj[19] = new Tree(2);
-        gp.obj[19].worldX = 24*gp.size;
-        gp.obj[19].worldY = 13*gp.size;
-        
-        gp.obj[20] = new Tree(2);
-        gp.obj[20].worldX = 20*gp.size;
-        gp.obj[20].worldY = 7*gp.size;
-        
-        gp.obj[21] = new Tree(2);
-        gp.obj[21].worldX = 17*gp.size;
-        gp.obj[21].worldY = 14*gp.size;
-
-        gp.obj[22] = new Tree(2);
-        gp.obj[22].worldX = 5*gp.size;
-        gp.obj[22].worldY = 15*gp.size;
-        
-        gp.obj[23] = new Tree(1);
-        gp.obj[23].worldX = 15*gp.size;
-        gp.obj[23].worldY = 15*gp.size;
-        
-        gp.obj[24] = new Tree(3);
-        gp.obj[24].worldX = 8*gp.size;
-        gp.obj[24].worldY = 15*gp.size;
-
-        gp.obj[25] = new Tree(3);
-        gp.obj[25].worldX = 13*gp.size;
-        gp.obj[25].worldY = 16*gp.size;
-        
-        gp.obj[26] = new Tree(3);
-        gp.obj[26].worldX = 22*gp.size;
-        gp.obj[26].worldY = 19*gp.size;
-
-        gp.obj[27] = new Tree(3);
-        gp.obj[27].worldX = 10*gp.size;
-        gp.obj[27].worldY = 21*gp.size;
-        
-        gp.obj[28] = new Tree(3);
-        gp.obj[28].worldX = 15*gp.size;
-        gp.obj[28].worldY = 22*gp.size;
-        
-        gp.obj[29] = new Tree(1);
-        gp.obj[29].worldX = 9*gp.size;
-        gp.obj[29].worldY = 23*gp.size;
     }
+    
+    public void drawAssets(Graphics2D g2){
+    
+        
+        for (Fruit f : gp.Fruits_in_map){
+            if (f != null){
+                f.draw(g2);
+            }
+        }
+        for (Mushrooms m : gp.Mushrooms_in_map){
+            if (m != null){
+                m.draw(g2);
+            }
+        }
+        
+        for (Rocks r : gp.Rocks_in_map){
+            if (r != null){
+                r.draw(g2);
+            }
+        }
+        for (Animals animal  : gp.animals_in_map){
+            if (animal != null){
+                animal.draw(g2);
+            }
+        }
+        
+        for (Tree t : gp.Trees_in_map){
+            if (t != null){
+                t.draw(g2);
+            }
+        }
+        
+        for (Shelter shelder  : gp.shelters_in_map){
+            if (shelder != null){
+                shelder.draw(g2);
+            }
+        }
+ 
+    }
+    
+    public void updateAssets(){
+        
+        for (Fog f : gp.fog){
+            if (f != null){
+                f.update();
+            }
+        } 
+    
+        for (Tree t : gp.Trees_in_map){
+            if (t != null){
+                t.update();
+            }
+        }
+        for (Fruit f : gp.Fruits_in_map){
+            if (f != null){
+                f.update();
+            }
+        }
+        for (Mushrooms m : gp.Mushrooms_in_map){
+            if (m != null){
+                m.update();
+            }
+        }
+        for (Rocks r : gp.Rocks_in_map){
+            if (r != null){
+                r.update();
+            }
+        }
+        for (Animals animal: gp.animals_in_map){
+            if (animal != null){
+                animal.update();
+            }
+        }
+        for (Shelter shelder  : gp.shelters_in_map){
+            if (shelder != null){
+                shelder.update();
+            }
+        }       
+    }
+    
+    private void insertFog() {
+    // Creats Fog around all the map
+    for (int x = 0; x < 30; x++) {
+        for (int y = 0; y < 30; y++) {
+            if ((x >= 13 && x <= 17) && (y >= 13 && y <= 17)) {
+                continue;
+            }
+            fog = new Fog(gp);
+            fog.SetXY(x, y);
+            gp.fog.add(fog);
+        }
+    }
+}
+
 }

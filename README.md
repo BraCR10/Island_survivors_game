@@ -1,4 +1,5 @@
 # Island Survivors Game  
+This game was developed as project 1 of the object oriented programming course at the Instituto Tecnológico de Costa Rica (TEC).
 
 Welcome to the **Island Survivors Game** repository! 🌴  
 This project is a survival game developed in **Java** using object-oriented programming (OOP). Players must survive on an island, facing challenges such as animal attacks, storms, and the need to build shelters for protection.  

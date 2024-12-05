@@ -29,5 +29,5 @@ This project is a survival game developed in **Java** using object-oriented prog
 2. Clone the repository:  
    ```bash  
    git clone https://github.com/yourusername/island_survivors_game.git
-3. Run using a java compiler.
+3. Run using a java IDLE.
    
